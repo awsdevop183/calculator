@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolt-Nut-Washer Calculator</title>
+</head>
+<body>
+    <h1>Bolt-Nut-Washer Calculator</h1>
+    <form method="POST" action="/">
+        {% for item in ['Nut', 'Bolt', 'Washer'] %}
+        <h2>{{ item }}</h2>
+        <label for="item_name_{{ loop.index }}">{{ item }} Name:</label>
+        <input type="text" name="item_name_{{ loop.index }}" required><br>
+        <label for="carton_weight_{{ loop.index }}">Carton Weight (Kgs):</label>
+        <input type="number" name="carton_weight_{{ loop.index }}" step="0.01" required><br>
+        <label for="number_of_pieces_{{ loop.index }}">Number of Pieces in Carton:</label>
+        <input type="number" name="number_of_pieces_{{ loop.index }}" required><br>
+        <label for="price_per_kg_{{ loop.index }}">Price per Kg:</label>
+        <input type="number" name="price_per_kg_{{ loop.index }}" step="0.01" required><br>
+        <br>
+    {% endfor %}
+        <label for="required_quantity">Required Quantity (Kgs):</label>
+        <input type="number" name="required_quantity" step="0.01" required><br>
+        <button type="submit">Calculate</button>
+    </form>
+    {% if output_messages %}
+        <div class="output-container">
+            <h2>Output Messages</h2>
+            <ul>
+                {% for message in output_messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</body>
+</html>
